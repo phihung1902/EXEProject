@@ -35,7 +35,7 @@ const CourseCard = ({ course }) => {
       <h3>{course.title}</h3>
       <p>Instructor- {course.createdBy}</p>
       <p>Duration- {course.duration} weeks</p>
-      <p>Price- ₹{course.price}</p>
+      <p>Price- ${course.price}</p>
       {isAuth ? (
         <>
           {user && user.role !== "admin" ? (
