@@ -6,7 +6,10 @@ import cors from "cors";
 
 dotenv.config();
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+export const instance = new Stripe({
+  key_id: process.env.STRIPE_KEY,
+  key_secret: process.env.STRIPE_SECRET_KEY,
+});
 
 const app = express();
 

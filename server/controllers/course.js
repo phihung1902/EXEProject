@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import { instance } from "../index.js";
 import TryCatch from "../middlewares/TryCatch.js";
 import { Courses } from "../models/Courses.js";
 import { Lecture } from "../models/Lecture.js";
@@ -79,14 +80,15 @@ export const checkout = TryCatch(async (req, res) => {
     });
   }
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: course.price * 100,
-    currency: "usd",
-    metadata: { courseId: course._id, userId: user._id },
-  });
+  const options = {
+    amount: Number(course.price * 100),
+    currency: "USD",
+  };
+
+  const order = await instance.orders.create(options);
 
   res.status(201).json({
-    clientSecret: paymentIntent.client_secret,
+    order,
     course,
   });
 });
